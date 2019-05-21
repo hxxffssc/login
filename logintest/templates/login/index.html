@@ -1,0 +1,13 @@
+{#login/templates/login/index.html#}
+
+{% extends 'login/base.html' %}
+{% block title %}主页{% endblock %}
+{% block content %}
+    {% if request.session.is_login  %}
+    <h1>您好，{{ request.session.user_name }}，欢迎回来！</h1>
+        <a href = "/upload/">总账组表格整合</a><br>
+        <a href="http://172.16.122.78:8000/main">AI影像识别</a>
+    {% else %}
+    <h1>您尚未登陆，只能浏览公开内容！</h1>
+    {% endif %}
+{% endblock %}

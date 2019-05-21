@@ -1,0 +1,35 @@
+{#login/templates/login/index.html#}
+
+{% extends 'login/base.html' %}
+{% block title %}主页{% endblock %}
+{% block content %}
+
+    {% if request.session.is_login  %}
+    <h1>您好，{{ request.session.user_name }}，欢迎回来！</h1>
+        {% if request.session.user_name == '3456'  %}
+   <a href="/integrate/">报表整合</a><br>
+            <a href="/check/">检查已上传基础表</a><br>
+    {% endif %}
+    <form action="/upload/" method="POST" enctype="multipart/form-data">
+         {% csrf_token %}
+        <div class="form-group">
+              {{ type_form.type.label_tag }}
+              {{ type_form.type }}
+        </div>
+        <div class="form-group">
+              {{ type_form.month.label_tag }}
+              {{ type_form.month }}
+        </div>
+    <input type="file" name="tiaozhang" />
+    <input type="submit" value="上传" />
+              {% if message %}
+                  <div class="alert alert-warning">{{ message }}</div>
+              {% endif %}
+</form>
+        <h3>提示：</h3>
+        <h6>1.不要忘记选择种类和月份；</h6>
+        <h6>2.对于单一账号，选择特定种类和月份的多次上传表格的，只统计截至汇总时最后一次上传的表格；</h6>
+    {% else %}
+    <h1>您尚未登陆，只能浏览公开内容！</h1>
+    {% endif %}
+{% endblock %}
